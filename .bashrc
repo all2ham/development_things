@@ -67,7 +67,7 @@ get_conda_env() {
 }
 
 if [ "$color_prompt" = yes ]; then
-	PS1='\e[38;5;135m$(get_conda_env)\e[m${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\e[0;32m$(parse_git_branch)\e[m\$ '
+	PS1='\[\033[38;5;129m\]$(get_conda_env)\[\033[00m\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[38;5;34m\]$(parse_git_branch)\[\033[00m\]\$ '
 else
 	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\[\033[00m\] \$ '
 fi
@@ -135,4 +135,8 @@ sa(){
 
 sd(){
 	source deactivate	
+}
+
+ppc(){
+	ssh ppoadmin@$1.local
 }
