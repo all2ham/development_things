@@ -140,3 +140,33 @@ sd(){
 ppc(){
 	ssh ppoadmin@$1.local
 }
+
+
+alias b='cd ..'
+alias h='history -i'
+alias gg='git status'
+alias gitfix='git add . && git commit --fixup=HEAD && (export GIT_EDITOR=true; git rebase -i HEAD~2 --autosquash ) && git push -f'
+
+function denter {
+    docker exec -it $1 env PS1="🐳 \u@\[\033[01;36m\]$1\[\033[00m\]:\W \[\033[01;32m\]$\[\033[00m\] " /bin/bash --norc
+}
+
+function gbranch_clean() {
+    git fetch -p && for branch in $(git for-each-ref --format '%(refname) %(upstream:track)' refs/heads | awk '$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}'); do git branch -D $branch; done
+}
+
+function gfresh() {
+    local new_branch_name=$1
+    git fetch
+    git checkout origin/main
+    git checkout -b allan/$new_branch_name
+}
+
+# kubectl
+#source <(kubectl completion zsh)
+#alias k=kubectl
+#complete -F __start_kubectl k
+
+# zsh history
+HISTSIZE=999999999
+SAVEHIST=$HISTSIZE
